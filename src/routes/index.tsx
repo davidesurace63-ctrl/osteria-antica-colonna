@@ -128,7 +128,8 @@ function Index() {
         </div>
       </header>
 
-      <section id="home" className="relative flex min-h-screen items-center bg-cover bg-center pt-24" style={{ backgroundImage: `url(${sala.url})` }}>
+      <section id="home" className="relative pt-24">
+        <div className="relative flex min-h-screen items-center bg-cover bg-center" style={{ backgroundImage: `url(${sala.url})` }}>
         <div className="bg-hero-overlay absolute inset-0" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-[1.3fr_1fr]">
           <div className="text-wood-foreground">
@@ -154,6 +155,7 @@ function Index() {
               </div>
             )}
           </form>
+          </div>
         </div>
 
         <div id="storia" className="mx-auto grid max-w-7xl items-center gap-14 px-6 py-24 md:grid-cols-2">
