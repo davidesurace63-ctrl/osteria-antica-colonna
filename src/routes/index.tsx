@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
+import { menu } from "@/data/menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import sala from "@/assets/sala.jpg.asset.json";
 import ingresso from "@/assets/ingresso.avif.asset.json";
@@ -18,6 +19,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Osteria Antica Colonna a Padova, Via Altinate 127: bigoli fatti in casa, baccalà, sarde in saor e vini veneti. Prenota il tuo tavolo." },
       { property: "og:title", content: "Osteria Antica Colonna — La vera tradizione veneta a Padova" },
       { property: "og:description", content: "I sapori autentici di una volta nel cuore di Padova, Via Altinate 127. Prenota un tavolo." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Index,
@@ -37,66 +40,6 @@ const dishes = [
   { src: patate.url, t: "Patate alla Ca' Dorina", d: "Speck croccante, cipolla e burro fuso" },
   { src: carpaccio.url, t: "Carpaccio di scottona", d: "Con funghi e prezzemolo fresco" },
 ];
-
-type Item = [string, string?];
-const menu: Record<string, Item[]> = {
-  Antipasti: [
-    ["Affettati misti con formaggi", "medio 14 € · grande 16 €"],
-    ["Bufala, prosciutto crudo e pomodorini", "15 €"],
-    ["Baccalà alla vicentina e mantecato con sarde in saor e polenta"],
-    ["Uova in padella e tartufo di Acqualagna D.O.P.", "12 €"],
-    ["Terracotta", "12 €"],
-    ["Fusione di asiago e gorgonzola con pere e noci"],
-  ],
-  Primi: [
-    ["Bigoli di pasta fresca al ragù bianco di cortile", "13 €"],
-    ["Bigoli di pasta fresca in salsa di acciughe", "13 €"],
-    ["Tagliatelle con verdure spadellate", "11 €"],
-    ["Paccheri con gamberetti, pesto e stracciatella", "15 €"],
-  ],
-  Secondi: [
-    ["Tartare o carpaccio di scottona", "24 €"],
-    ["Costata di scottona (all'etto)", "5 € / hg"],
-    ["\u201CLabbra salate\u201D", "17 €"],
-    ["Baccalà alla vicentina e mantecato con sarde in saor e polenta"],
-    ["Arrosto di vitello con patate", "20 €"],
-    ["Ribs di maiale con salsa dello chef", "20 €"],
-    ["Fegato alla veneziana con polenta", "22 €"],
-  ],
-  Contorni: [
-    ["Insalata con pomodori e cipolla", "5 €"],
-    ["Fagioli alla Bud Spencer con salsiccia e pomodoro piccante", "7 €"],
-    ["Fagioli e cipolla", "6 €"],
-    ["Verdure spadellate", "6 €"],
-    ["Patate alla Ca' Dorina con speck, cipolla e burro fuso", "7 €"],
-  ],
-  Dolci: [
-    ["\u201CIl nostro\u201D tiramisù medaglia d'oro al valore (quando c'è!)", "6 €"],
-    ["Semifreddo al pistacchio", "6 €"],
-    ["Semifreddo al torroncino", "6 €"],
-    ["Soufflé al cioccolato con cuore caldo", "6 €"],
-  ],
-  Vini: [
-    ["Rossi — Valpolicella Ripasso, Benedetti La Villa", "26 €"],
-    ["Rossi — Valpolicella Classico Superiore, Benedetti La Villa", "24 €"],
-    ["Rossi — Cabernet, Parco del Venda", "22 €"],
-    ["Rossi — Merlot, Parco del Venda", "22 €"],
-    ["Rossi — Merlot Lapilli, Parco del Venda", "26 €"],
-    ["Rossi — Cabernet Agape, Parco del Venda", "26 €"],
-    ["Bianchi — Rio Floriano Friulano Collio DOC", "26 €"],
-    ["Bianchi — Chardonnay, Parco del Venda", "22 €"],
-    ["Bianchi — Chardonnay, Frassinella", "21 €"],
-    ["Bianchi — Pinot Bianco, Parco del Venda", "22 €"],
-    ["Bianchi — Pinello Autoctono, Parco del Venda", "22 €"],
-    ["Bollicine — Prosecco, Parco del Venda", "20 €"],
-    ["Bollicine — Champagne Uve Blanche Estelle Encry Brut", "80 €"],
-  ],
-  "Casa & Birra": [
-    ["Rosso fermo della casa (1/4 L)", "4 €"],
-    ["Prosecco della casa (1/4 L)", "4 €"],
-    ["Birra alla spina (piccola)"],
-  ],
-};
 
 const field = "w-full rounded-md border border-input bg-card px-3 py-2.5 text-sm text-foreground outline-none focus:ring-2 focus:ring-ring";
 
@@ -229,10 +172,13 @@ function Index() {
             {Object.entries(menu).map(([k, items]) => (
               <TabsContent key={k} value={k} className="rounded-lg bg-card p-6 md:p-10">
                 <ul className="divide-y divide-border">
-                  {items.map(([n, p]) => (
-                    <li key={n} className="flex items-baseline justify-between gap-6 py-4">
-                      <span className="font-display text-xl">{n}</span>
-                      {p && <span className="shrink-0 text-sm font-semibold text-primary">{p}</span>}
+                  {items.map((item) => (
+                    <li key={item.name} className="flex items-baseline justify-between gap-4 py-4">
+                      <div className="min-w-0">
+                        <span className="font-display text-xl">{item.name}</span>
+                        {item.description && <p className="mt-1 text-sm text-muted-foreground">{item.description}</p>}
+                      </div>
+                      <span className="shrink-0 text-sm font-semibold text-primary">{item.price} €{item.unit ? ` / ${item.unit}` : ""}</span>
                     </li>
                   ))}
                 </ul>
