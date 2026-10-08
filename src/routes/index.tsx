@@ -15,17 +15,17 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Osteria Antica Colonna — Cucina tradizionale veneta" },
-      { name: "description", content: "Osteria Antica Colonna: bigoli fatti in casa, baccalà, sarde in saor e vini veneti. Prenota il tuo tavolo." },
-      { property: "og:title", content: "Osteria Antica Colonna — La vera tradizione veneta" },
-      { property: "og:description", content: "I sapori autentici di una volta, serviti con passione. Prenota un tavolo." },
+      { name: "description", content: "Osteria Antica Colonna a Padova, Via Altinate 127: bigoli fatti in casa, baccalà, sarde in saor e vini veneti. Prenota il tuo tavolo." },
+      { property: "og:title", content: "Osteria Antica Colonna — La vera tradizione veneta a Padova" },
+      { property: "og:description", content: "I sapori autentici di una volta nel cuore di Padova, Via Altinate 127. Prenota un tavolo." },
     ],
   }),
   component: Index,
 });
 
 const nav = [
-  ["Home", "#home"], ["Storia", "#storia"], ["Galleria", "#galleria"],
-  ["Chi Siamo", "#chi-siamo"], ["Menu", "#menu"], ["Contatti", "#contatti"],
+  ["Home", "#home"], ["Chi Siamo", "#chi-siamo"],
+  ["Menu", "#menu"], ["Contatti", "#contatti"],
 ];
 
 const dishes = [
@@ -128,13 +128,14 @@ function Index() {
         </div>
       </header>
 
-      <section id="home" className="relative flex min-h-screen items-center bg-cover bg-center pt-24" style={{ backgroundImage: `url(${sala.url})` }}>
+      <section id="home" className="relative pt-24">
+        <div className="relative flex min-h-screen items-center bg-cover bg-center" style={{ backgroundImage: `url(${sala.url})` }}>
         <div className="bg-hero-overlay absolute inset-0" />
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-16 lg:grid-cols-[1.3fr_1fr]">
           <div className="text-wood-foreground">
             <p className="text-xs font-semibold uppercase tracking-[0.35em] text-accent">Cucina veneta dal cuore</p>
             <h1 className="mt-5 font-display text-5xl font-semibold leading-[1.05] md:text-7xl">La Vera Tradizione Culinaria Veneta</h1>
-            <p className="mt-6 max-w-xl text-lg opacity-90">I sapori autentici di una volta, serviti con passione nel cuore della tradizione.</p>
+            <p className="mt-6 max-w-xl text-lg opacity-90">I sapori autentici di una volta, serviti con passione nel cuore di Padova.</p>
           </div>
           <form onSubmit={submit(setBooked)} className="rounded-lg border-t-4 border-primary bg-card p-7 text-card-foreground shadow-2xl">
             <h3 className="font-display text-3xl font-semibold">Prenota il tuo tavolo</h3>
@@ -154,22 +155,22 @@ function Index() {
               </div>
             )}
           </form>
+          </div>
         </div>
-      </section>
 
-      <section id="storia" className="mx-auto grid max-w-7xl items-center gap-14 px-6 py-24 md:grid-cols-2">
-        <img src={ingresso.url} alt="L'ingresso storico dell'Osteria All'Antica Colonna" className="aspect-[4/3] w-full rounded-lg object-cover shadow-xl" />
+        <div id="storia" className="mx-auto grid max-w-7xl items-center gap-14 px-6 py-24 md:grid-cols-2">
+        <img src={ingresso.url} alt="L'ingresso dell'Osteria All'Antica Colonna in Via Altinate, Padova" className="aspect-[4/3] w-full rounded-lg object-cover shadow-xl" />
         <div>
           <Title kicker="Dal passato">La Nostra Storia</Title>
           <div className="space-y-4 leading-relaxed text-muted-foreground">
-            <p>Sotto gli archi e l'insegna d'epoca dell'Osteria All'Antica Colonna si respira la Venezia di una volta: quella dei bacari, delle ombre di vino e delle chiacchiere al banco.</p>
+            <p>Sotto gli archi di Via Altinate, nel cuore di Padova, l'Osteria All'Antica Colonna custodisce lo spirito delle osterie di una volta: il banco di legno, il calice di vino e le chiacchiere a tavola.</p>
             <p>Ogni giorno impastiamo a mano bigoli e tagliatelle, scegliamo ingredienti a km 0 dai produttori del territorio e cuciniamo le ricette tramandate in famiglia: il baccalà, le sarde in saor, il fegato alla veneziana.</p>
             <p>Nessuna scorciatoia: solo tempo, pazienza e il rispetto per la tradizione.</p>
           </div>
         </div>
-      </section>
+        </div>
 
-      <section id="galleria" className="bg-wood py-24 text-wood-foreground">
+        <div className="bg-wood py-24 text-wood-foreground">
         <div className="mx-auto max-w-7xl px-6">
           <Title kicker="Galleria">Eccellenze in Tavola</Title>
           <p className="-mt-4 mb-10 opacity-80">I nostri piatti tradizionali preparati con ingredienti freschi e di qualità.</p>
@@ -183,6 +184,7 @@ function Index() {
                 </div>
               </button>
             ))}
+          </div>
           </div>
         </div>
       </section>
@@ -244,12 +246,17 @@ function Index() {
         <div>
           <Title kicker="Vieni a trovarci">Contatti</Title>
           <dl className="space-y-5">
-            <div><dt className="text-xs uppercase tracking-widest text-muted-foreground">Indirizzo</dt><dd className="font-display text-xl">Indirizzo da confermare</dd></div>
-            <div><dt className="text-xs uppercase tracking-widest text-muted-foreground">Orari</dt><dd>Mar – Dom · 12:00–14:30 / 19:00–22:30 · Lunedì chiuso</dd></div>
-            <div><dt className="text-xs uppercase tracking-widest text-muted-foreground">Telefono & Email</dt><dd>+39 000 000 0000 · info@anticacolonna.it</dd></div>
+            <div><dt className="text-xs uppercase tracking-widest text-muted-foreground">Indirizzo</dt><dd className="font-display text-xl">Via Altinate, 127 · 35121 Padova PD</dd></div>
+            <div><dt className="text-xs uppercase tracking-widest text-muted-foreground">Orari</dt><dd>
+              Lunedì chiuso<br />
+              Mar – Ven · 12:00–14:30 / 19:00–22:30<br />
+              Sabato · 12:00–14:30 / 19:00–23:30<br />
+              Domenica · 12:00–14:30 / 19:00–22:30
+            </dd></div>
+            <div><dt className="text-xs uppercase tracking-widest text-muted-foreground">Telefono & Email</dt><dd><a href="tel:+393200883822" className="hover:text-accent">+39 320 088 3822</a> · info@anticacolonna.it</dd></div>
             <div className="flex gap-4 pt-2 text-sm font-semibold text-primary"><a href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a><a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a></div>
           </dl>
-          <iframe title="Mappa" src="https://www.google.com/maps?q=Osteria+Antica+Colonna&output=embed" className="mt-8 h-72 w-full rounded-lg border-0" loading="lazy" />
+          <iframe title="Mappa" src="https://www.google.com/maps?q=Via+Altinate+127,+35121+Padova&output=embed" className="mt-8 h-72 w-full rounded-lg border-0" loading="lazy" />
         </div>
         <form onSubmit={submit(setSent)} className="self-start rounded-lg bg-card p-8 shadow-sm">
           <h3 className="font-display text-3xl font-semibold">Scrivici</h3>
