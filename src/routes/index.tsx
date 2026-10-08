@@ -190,9 +190,9 @@ function Index() {
       {open !== null && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-wood/95 p-6 text-wood-foreground" onClick={() => setOpen(null)}>
           <figure className="max-w-3xl" onClick={(e) => e.stopPropagation()}>
-            <img src={dishes[open].src} alt={dishes[open].t} className="max-h-[75vh] w-full rounded-lg object-contain" />
+            <img src={dishes[open]!.src} alt={dishes[open]!.t} className="max-h-[75vh] w-full rounded-lg object-contain" />
             <figcaption className="mt-4 flex items-center justify-between gap-4">
-              <div><p className="font-display text-2xl">{dishes[open].t}</p><p className="text-sm opacity-80">{dishes[open].d}</p></div>
+              <div><p className="font-display text-2xl">{dishes[open]!.t}</p><p className="text-sm opacity-80">{dishes[open]!.d}</p></div>
               <div className="flex gap-2">
                 <button aria-label="Precedente" onClick={() => setOpen((open + dishes.length - 1) % dishes.length)} className="rounded-md border border-wood-foreground/30 px-3 py-1">‹</button>
                 <button aria-label="Successivo" onClick={() => setOpen((open + 1) % dishes.length)} className="rounded-md border border-wood-foreground/30 px-3 py-1">›</button>
