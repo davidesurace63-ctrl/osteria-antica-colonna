@@ -168,6 +168,7 @@ function Index() {
             <p>Nessuna scorciatoia: solo tempo, pazienza e il rispetto per la tradizione.</p>
           </div>
         </div>
+        </div>
 
         <div className="bg-wood py-24 text-wood-foreground">
         <div className="mx-auto max-w-7xl px-6">
