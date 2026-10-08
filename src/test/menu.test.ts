@@ -20,7 +20,7 @@ describe("Prices from the supplied menu", () => {
     });
   }
   it("the large mixed cold cuts plate costs €16", () => {
-    expect(menu.Antipasti?.[0]?.largePrice).toBe(16);
+    expect(menu["Antipasti"]?.[0]?.largePrice).toBe(16);
   });
   it("the €5 steak price is per hectogram", () => {
     expect(menu["Secondi piatti"]?.[1]?.unit).toBe("hg");
