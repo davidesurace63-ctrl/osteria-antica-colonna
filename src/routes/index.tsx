@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
+import { Menu, X } from "lucide-react";
 import { menu } from "@/data/menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import sala from "@/assets/sala.jpg.asset.json";
@@ -57,17 +58,40 @@ function Index() {
   const [booked, setBooked] = useState(false);
   const [sent, setSent] = useState(false);
   const [open, setOpen] = useState<number | null>(null);
+  const [openMenu, setOpenMenu] = useState(false);
   const submit = (f: (v: boolean) => void) => (e: FormEvent) => { e.preventDefault(); f(true); };
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setOpenMenu(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
 
   return (
     <div className="font-sans">
+      {openMenu && <div aria-hidden onClick={() => setOpenMenu(false)} className="fixed inset-0 z-30 bg-wood/50 lg:hidden" />}
       <header className="fixed inset-x-0 top-0 z-40 bg-wood/90 text-wood-foreground backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4">
-          <a href="#home" className="font-display text-2xl font-semibold italic">Osteria Antica Colonna</a>
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 md:px-6">
+          <a href="#home" onClick={() => setOpenMenu(false)} className="font-display text-xl font-semibold italic md:text-2xl">Osteria Antica Colonna</a>
           <nav className="hidden gap-7 text-sm lg:flex">
             {nav.map(([l, h]) => <a key={h} href={h} className="opacity-80 transition hover:text-accent hover:opacity-100">{l}</a>)}
           </nav>
-          <a href="#home" className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/85">Prenota un Tavolo</a>
+          <div className="flex items-center gap-3">
+            <a href="#home" className="hidden rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition hover:bg-primary/85 sm:inline-block lg:hidden">Prenota un Tavolo</a>
+            <button type="button" onClick={() => setOpenMenu((v) => !v)} aria-expanded={openMenu} aria-controls="tendina" aria-label={openMenu ? "Chiudi il menu" : "Apri il menu"} className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-wood-foreground/25 transition hover:border-accent hover:text-accent lg:hidden">
+              {openMenu ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
+        </div>
+        <div id="tendina" className={`overflow-hidden transition-[max-height,opacity] duration-300 ease-out lg:hidden ${openMenu ? "max-h-[30rem] opacity-100" : "max-h-0 opacity-0"}`}>
+          <nav aria-label="Menu mobile" className="mx-auto max-w-7xl px-5 pb-5 md:px-6">
+            <div className="checker mb-4 h-1.5 w-full rounded-sm opacity-70" />
+            <ul className="grid gap-1">
+              {nav.map(([l, h]) => (
+                <li key={h}><a href={h} onClick={() => setOpenMenu(false)} className="block rounded-md px-3 py-3 font-display text-2xl transition hover:bg-wood-foreground/10 hover:text-accent">{l}</a></li>
+              ))}
+            </ul>
+            <a href="#home" onClick={() => setOpenMenu(false)} className="mt-3 block rounded-md bg-primary px-4 py-3 text-center text-sm font-semibold text-primary-foreground transition hover:bg-primary/85">Prenota un Tavolo</a>
+          </nav>
         </div>
       </header>
 
@@ -148,7 +172,7 @@ function Index() {
         </div>
       )}
 
-      <section id="chi-siamo" className="mx-auto max-w-4xl px-6 py-24 text-center">
+      <section id="chi-siamo" className="mx-auto max-w-4xl scroll-mt-24 px-6 py-24 text-center">
         <p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">Chi Siamo</p>
         <h2 className="mt-3 font-display text-4xl font-semibold md:text-5xl">La Passione per l'Ospitalità</h2>
         <div className="checker mx-auto mt-5 h-2 w-24 rounded-sm" />
@@ -160,7 +184,7 @@ function Index() {
         </div>
       </section>
 
-      <section id="menu" className="bg-secondary py-24">
+      <section id="menu" className="scroll-mt-24 bg-secondary py-24">
         <div className="mx-auto max-w-4xl px-6">
           <Title kicker="La carta">Il Nostro Menù</Title>
           <Tabs defaultValue="Antipasti">
@@ -188,7 +212,7 @@ function Index() {
         </div>
       </section>
 
-      <section id="contatti" className="mx-auto grid max-w-7xl gap-12 px-6 py-24 lg:grid-cols-2">
+      <section id="contatti" className="mx-auto grid max-w-7xl scroll-mt-24 gap-12 px-6 py-24 lg:grid-cols-2">
         <div>
           <Title kicker="Vieni a trovarci">Contatti</Title>
           <dl className="space-y-5">
